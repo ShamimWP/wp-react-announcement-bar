@@ -112,3 +112,6 @@ function shamim_react_announcement_bar_settings() {
 }
 
 add_action( 'init', 'shamim_react_announcement_bar_settings' );
+
+// Include frontend.php file for Frontend functionality.
+require plugin_dir_path( __FILE__ ) . 'frontend.php';

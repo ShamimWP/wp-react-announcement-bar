@@ -5,6 +5,7 @@ import { Button, Panel, PanelBody, PanelRow, TextareaControl, ToggleControl } fr
 import { __ } from '@wordpress/i18n';
 
 //Custom Components.
+import Notices from './components/Notices';
 import SizeControl from './components/SizeControl';
 
 import {
@@ -20,13 +21,20 @@ const SettingsTitle = () => {
     )
 }
 
+// Add Save notice to backend.
+import { useDispatch } from '@wordpress/data';
+import { store as noticeStore } from '@wordpress/notices';
+
 import apiFetch from '@wordpress/api-fetch';
 import { useEffect } from '@wordpress/element';
 
+// Use Settings
 const useSettings = () => {
     const [message, setMessage] = useState();
     const [display, setDisplay] = useState();
     const [size, setSize] = useState();
+
+    const { createSuccessNotice } = useDispatch(noticeStore);
 
     useEffect(() => {
         apiFetch({ path: '/wp/v2/settings' }).then((settings) => {
@@ -47,9 +55,12 @@ const useSettings = () => {
                     size
                 },
             },
+        }).then(() => {
+            createSuccessNotice(
+                __('Settings Saved.', 'wp-react-announcement-bar')
+            )
         });
     };
-
     return {
         message,
         setMessage,
@@ -58,7 +69,8 @@ const useSettings = () => {
         size,
         setSize,
         saveSettings
-    }
+
+    };
 };
 
 // Message Control Component.
@@ -95,6 +107,8 @@ const SaveButton = ({ onClick }) => {
 }
 
 
+
+
 // The Settings Page View.
 const SettingsPage = () => {
     const {
@@ -109,6 +123,7 @@ const SettingsPage = () => {
     return (
         <>
             <SettingsTitle />
+            <Notices />
             <Panel>
                 <PanelBody>
                     <PanelRow>
