@@ -36,7 +36,7 @@ const useSettings = () => {
     const [message, setMessage] = useState();
     const [display, setDisplay] = useState();
     const [size, setSize] = useState();
-    const [background, setBackground] = useState('#f00');
+    const [background, setBackground] = useState();
 
     const { createSuccessNotice } = useDispatch(noticeStore);
 
@@ -113,8 +113,8 @@ const BarBackground = ({ value, onChange }) => {
                     name: 'Red'
                 },
                 {
-                    color: '#fff',
-                    name: 'White'
+                    color: '#000',
+                    name: 'Black'
                 },
                 {
                     color: '#00f',
@@ -170,7 +170,7 @@ const SettingsPage = () => {
                 </PanelBody>
                 <PanelBody
                     title={__('Appearance', 'wp-react-announcement-bar')}
-                    initialOpen={false}
+                    initialOpen={true}
                 >
                     <PanelRow>
                         <SizeControl

@@ -303,7 +303,7 @@ const useSettings = () => {
   const [message, setMessage] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)();
   const [display, setDisplay] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)();
   const [size, setSize] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)();
-  const [background, setBackground] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)('#f00');
+  const [background, setBackground] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)();
   const {
     createSuccessNotice
   } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_5__.useDispatch)(_wordpress_notices__WEBPACK_IMPORTED_MODULE_6__.store);
@@ -380,8 +380,8 @@ const BarBackground = ({
       color: '#f00',
       name: 'Red'
     }, {
-      color: '#fff',
-      name: 'White'
+      color: '#000',
+      name: 'Black'
     }, {
       color: '#00f',
       name: 'Blue'
@@ -432,7 +432,7 @@ const SettingsPage = () => {
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
         title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Appearance', 'wp-react-announcement-bar'),
-        initialOpen: false,
+        initialOpen: true,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelRow, {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_SizeControl__WEBPACK_IMPORTED_MODULE_8__["default"], {
             value: size,
