@@ -65,3 +65,50 @@ function wp_react_announcement_bar_setting_page_enqueue_style_script( $admin_pag
 }
 
 add_action( 'admin_enqueue_scripts', 'wp_react_announcement_bar_setting_page_enqueue_style_script' );
+
+/**
+ * Register Setting Option with Valid schema to Make it Rest API friendly.
+ *
+ * @return void
+ */
+function shamim_react_announcement_bar_settings() {
+	$default = array(
+		'message' => __( 'Hello Bangladesh', 'wp-react-announcement-bar' ),
+		'display' => true,
+		'size'    => 'medium',
+	);
+	$schema  = array(
+		'type'       => 'object',
+		'properties' => array(
+			'message' => array(
+				'type' => 'string',
+			),
+			'display' => array(
+				'type' => 'boolean',
+			),
+			'size'    => array(
+				'type' => 'string',
+				'enum' => array(
+					'small',
+					'medium',
+					'large',
+					'x-large',
+				),
+			),
+		),
+	);
+
+	register_setting(
+		'options',
+		'shamim_react_announcement_bar',
+		array(
+			'type'         => 'object',
+			'default'      => $default,
+			'show_in_rest' => array(
+				'schema' => $schema,
+			),
+		)
+	);
+}
+
+add_action( 'init', 'shamim_react_announcement_bar_settings' );
