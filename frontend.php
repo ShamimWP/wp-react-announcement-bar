@@ -13,7 +13,7 @@ function wp_react_announcement_bar_front_page() {
 
 	$front_style = WP_Style_Engine::compile_css(
 		array(
-			'background' => 'var(--wp--preset--color--vivid-purple, #9b51e0)',
+			'background' => $options['background'],
 			'color'      => 'var(--wp--preset--color--white, #ffffff)',
 			'padding'    => 'var(--wp--preset--spacing--20, 1.5rem)',
 			'text-align' => 'center',
@@ -30,8 +30,6 @@ function wp_react_announcement_bar_front_page() {
 }
 
 add_action( 'wp_body_open', 'wp_react_announcement_bar_front_page' );
-
-
 
 
 if ( ! function_exists( 'wp_body_open' ) ) {

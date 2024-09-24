@@ -62,6 +62,19 @@ function wp_react_announcement_bar_setting_page_enqueue_style_script( $admin_pag
 
 	// Enqueue Component Style.
 	wp_enqueue_style( 'wp-components' );
+
+	// Custom Style.
+	wp_enqueue_style(
+		'shamim-announcement-bar-style',
+		plugins_url( '/build/index.css', __FILE__ ),
+		array_filter(
+			$asset['dependencies'],
+			function( $style ) {
+				return wp_style_is( $style, 'registered' );
+			}
+		),
+		$asset['version'],
+	);
 }
 
 add_action( 'admin_enqueue_scripts', 'wp_react_announcement_bar_setting_page_enqueue_style_script' );
@@ -73,20 +86,21 @@ add_action( 'admin_enqueue_scripts', 'wp_react_announcement_bar_setting_page_enq
  */
 function shamim_react_announcement_bar_settings() {
 	$default = array(
-		'message' => __( 'Hello Bangladesh', 'wp-react-announcement-bar' ),
-		'display' => true,
-		'size'    => 'medium',
+		'message'    => __( 'Hello Bangladesh', 'wp-react-announcement-bar' ),
+		'display'    => true,
+		'size'       => 'medium',
+		'background' => 'blue',
 	);
 	$schema  = array(
 		'type'       => 'object',
 		'properties' => array(
-			'message' => array(
+			'message'    => array(
 				'type' => 'string',
 			),
-			'display' => array(
+			'display'    => array(
 				'type' => 'boolean',
 			),
-			'size'    => array(
+			'size'       => array(
 				'type' => 'string',
 				'enum' => array(
 					'small',
@@ -94,6 +108,9 @@ function shamim_react_announcement_bar_settings() {
 					'large',
 					'x-large',
 				),
+			),
+			'background' => array(
+				'type' => 'string',
 			),
 		),
 	);

@@ -1,17 +1,26 @@
 import domReady from '@wordpress/dom-ready';
-import { createRoot, useState } from '@wordpress/element';
+import { createRoot, useEffect, useState } from '@wordpress/element';
 
-import { Button, Panel, PanelBody, PanelRow, TextareaControl, ToggleControl } from '@wordpress/components';
+import { Button, ColorPalette, Panel, PanelBody, PanelRow, TextareaControl, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-
-//Custom Components.
-import Notices from './components/Notices';
-import SizeControl from './components/SizeControl';
 
 import {
     // eslint-disable-next-line @wordpress/no-unsafe-wp-apis
     __experimentalHeading as Heading,
 } from '@wordpress/components';
+
+// Add Save notice to backend.
+import apiFetch from '@wordpress/api-fetch';
+import { useDispatch } from '@wordpress/data';
+import { store as noticeStore } from '@wordpress/notices';
+
+
+//Custom Components.
+import Notices from './components/Notices';
+import SizeControl from './components/SizeControl';
+
+import './index.scss';
+
 
 const SettingsTitle = () => {
     return (
@@ -21,18 +30,13 @@ const SettingsTitle = () => {
     )
 }
 
-// Add Save notice to backend.
-import { useDispatch } from '@wordpress/data';
-import { store as noticeStore } from '@wordpress/notices';
-
-import apiFetch from '@wordpress/api-fetch';
-import { useEffect } from '@wordpress/element';
 
 // Use Settings
 const useSettings = () => {
     const [message, setMessage] = useState();
     const [display, setDisplay] = useState();
     const [size, setSize] = useState();
+    const [background, setBackground] = useState('#f00');
 
     const { createSuccessNotice } = useDispatch(noticeStore);
 
@@ -41,6 +45,7 @@ const useSettings = () => {
             setMessage(settings.shamim_react_announcement_bar.message);
             setDisplay(settings.shamim_react_announcement_bar.display);
             setSize(settings.shamim_react_announcement_bar.size);
+            setBackground(settings.shamim_react_announcement_bar.background);
         })
     }, []);
 
@@ -52,7 +57,8 @@ const useSettings = () => {
                 shamim_react_announcement_bar: {
                     message,
                     display,
-                    size
+                    size,
+                    background
                 },
             },
         }).then(() => {
@@ -68,8 +74,9 @@ const useSettings = () => {
         setDisplay,
         size,
         setSize,
+        background,
+        setBackground,
         saveSettings
-
     };
 };
 
@@ -97,6 +104,29 @@ const DisplayControl = ({ value, onChange }) => {
     )
 }
 
+const BarBackground = ({ value, onChange }) => {
+    return (
+        <ColorPalette
+            colors={[
+                {
+                    color: '#f00',
+                    name: 'Red'
+                },
+                {
+                    color: '#fff',
+                    name: 'White'
+                },
+                {
+                    color: '#00f',
+                    name: 'Blue'
+                }
+            ]}
+            value={value}
+            onChange={onChange}
+        />
+    )
+}
+
 // Save Button.
 const SaveButton = ({ onClick }) => {
     return (
@@ -105,9 +135,6 @@ const SaveButton = ({ onClick }) => {
         </Button>
     )
 }
-
-
-
 
 // The Settings Page View.
 const SettingsPage = () => {
@@ -118,6 +145,8 @@ const SettingsPage = () => {
         setDisplay,
         size,
         setSize,
+        background,
+        setBackground,
         saveSettings
     } = useSettings();
     return (
@@ -147,6 +176,12 @@ const SettingsPage = () => {
                         <SizeControl
                             value={size}
                             onChange={(value) => setSize(value)}
+                        />
+                    </PanelRow>
+                    <PanelRow>
+                        <BarBackground
+                            value={background}
+                            onChange={(value) => setBackground(value)}
                         />
                     </PanelRow>
                 </PanelBody>
