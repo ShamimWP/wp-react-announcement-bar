@@ -45,5 +45,5 @@ function wp_react_announcement_bar_setting_page_enqueue_style_script( $admin_pag
 		return;
 	}
 
-	$asset_file = plugin_dir_path( __FILE__ ) . 'build/index.asset.php'
+	$asset_file = plugin_dir_path( __FILE__ ) . 'build/index.asset.php';
 }
