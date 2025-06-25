@@ -4,7 +4,7 @@
  * Description:       A Testing Plugin to practice React with WordPress Plugin Page. This plugin will add an announcement bar to website if we enable the option form setting page.
  * Requires at least: 6.6
  * Requires PHP:      7.0
- * Version:           0.1.0
+ * Version:           1.0.0
  * Author:            Shamim Mia
  * Plugin URI:       https://shamimmia.com
  * Author URI:       https://shamimmia.com
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Setting Page.
+ * Setting Page for the plugin settings.
  *
  * @return void
  */
@@ -69,7 +69,7 @@ function wp_react_announcement_bar_setting_page_enqueue_style_script( $admin_pag
 		plugins_url( '/build/index.css', __FILE__ ),
 		array_filter(
 			$asset['dependencies'],
-			function( $style ) {
+			function ( $style ) {
 				return wp_style_is( $style, 'registered' );
 			}
 		),
@@ -86,7 +86,7 @@ add_action( 'admin_enqueue_scripts', 'wp_react_announcement_bar_setting_page_enq
  */
 function shamim_react_announcement_bar_settings() {
 	$default = array(
-		'message'    => __( 'Hello Bangladesh', 'wp-react-announcement-bar' ),
+		'message'    => __( 'Summer Sale, Get 20% Discount on All Products!', 'wp-react-announcement-bar' ),
 		'display'    => true,
 		'size'       => 'medium',
 		'background' => 'blue',
