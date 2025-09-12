@@ -63,7 +63,7 @@ const useSettings = () => {
             },
         }).then(() => {
             createSuccessNotice(
-                __('Settings Saved.', 'wp-react-announcement-bar')
+                __('Announcement Settings Saved.', 'wp-react-announcement-bar')
             )
         });
     };
